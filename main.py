@@ -7,7 +7,13 @@ logger = logging.getLogger(__name__)
 def main():
     logging.basicConfig(filename='game_theory.log', level=logging.INFO)
     game = GameTheory()
-    game.add_players([PlayerFactory.get_player('unforgiving'), PlayerFactory.get_player('tittat'), PlayerFactory.get_player('forgive'), PlayerFactory.get_player('defect')])
+    for _ in range(10):
+        game.add_players([PlayerFactory.get_player("tittat")])
+        game.add_players([PlayerFactory.get_player("pavlov")])
+        game.add_players([PlayerFactory.get_player("defect")])
+        game.add_players([PlayerFactory.get_player("forgive")])
+        game.add_players([PlayerFactory.get_player("random")])
+        game.add_players([PlayerFactory.get_player("unforgiving")])
     game.play()
 
 

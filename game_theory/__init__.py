@@ -60,28 +60,29 @@ class GameTheory:
         init_points_p1, init_points_p2 = player1.points, player2.points
         # randomize which players go first because there might be some bias in who goes first
         for _ in range(self.rounds):
-            # TODO DRY Refactor
-            p1_move = player1.next_move(player2_moves)
-            logger.info(f"{player1.name} has chosen {p1_move}")
-            player1_moves.append(p1_move)
-            p2_move = player2.next_move(player1_moves)
-            logger.info(f"{player2.name} has chosen {p2_move}")
-            player2_moves.append(p2_move)
+            p1_move = self._player_moves(player1, player2_moves)
+            p2_move = self._player_moves(player2, player1_moves)
             p1_points, p2_points, = self.payoff_matrix.evaluate(p1_move, p2_move)
             logger.info(
                 f"{player1.name} has received {p1_points} points and {player2.name} has received {p2_points} points")
+            # appends at the end to make sure that moves happen simultaneously
+            player1_moves.append(p1_move)
+            player2_moves.append(p2_move)
             player1.add_points(p1_points)
             player2.add_points(p2_points)
-        p1_points_earned_in_round = player1.points - init_points_p1
-        p2_points_earned_in_round = player2.points - init_points_p2
-        assert p1_points_earned_in_round >= 0
-        assert p2_points_earned_in_round >= 0, f"current player2 points: {player2.points} pts, initially: {init_points_p2} pts"
+        p1_points_earned_in_round, p2_points_earned_in_round = player1.points - init_points_p1, player2.points - init_points_p2
+        assert p1_points_earned_in_round >= 0 and p2_points_earned_in_round >= 0
         logger.info(
             f"{player1.name} has earned in total: {p1_points_earned_in_round}, {player2.name} has earned in total: {p2_points_earned_in_round}")
         logger.info("*" * 20)
-    #     cleanup round
+    #     make sure players reset context/ history for upcoming player
         player1.cleanup_round()
         player2.cleanup_round()
+
+    def _player_moves(self, player1, player2_moves):
+        p1_move = player1.next_move(player2_moves)
+        logger.info(f"{player1.name} has chosen {p1_move}")
+        return p1_move
 
     def _display_results(self):
         # display the top performing players first in descending order
