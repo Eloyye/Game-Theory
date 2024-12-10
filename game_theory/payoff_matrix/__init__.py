@@ -2,7 +2,7 @@ from game_theory.utils import PlayerDecision
 
 
 class PayoffMatrix:
-    def __init__(self, cooperation_outcome=5, uneven_defect_outcome = (10, 0), all_defect_outcome = 0):
+    def __init__(self, cooperation_outcome=3, uneven_defect_outcome = (10, -5), all_defect_outcome = 0):
         self.cooperation_outcome = cooperation_outcome
         self.uneven_defect_outcome = uneven_defect_outcome
         self.all_defect_outcome = all_defect_outcome

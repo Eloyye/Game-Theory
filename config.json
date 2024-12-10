@@ -1,0 +1,11 @@
+{
+  "random_ratio": 0.05,
+  "players": [
+    {"player_type":  "tittat", "amount":  1},
+    {"player_type":  "defect", "amount":  1},
+    {"player_type":  "pavlov", "amount":  1},
+    {"player_type":  "unforgiving", "amount":  1},
+    {"player_type":  "forgive", "amount":  1},
+    {"player_type":  "random", "amount":  1}
+  ]
+}

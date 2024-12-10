@@ -13,16 +13,16 @@ class PavlovPlayer(Player):
     def next_move(self, opponent_decisions: list[PlayerDecision]) -> PlayerDecision:
         if opponent_decisions and self.previous_move:
             opponent_prev_move = opponent_decisions[-1]
+            # concedes when punished
             if self.previous_move == opponent_prev_move:
                 self.previous_move = PlayerDecision.COOPERATE
                 return PlayerDecision.COOPERATE
+        #     case where both doesn't cooperate
             if self.previous_move != opponent_prev_move:
                 self.previous_move = PlayerDecision.DEFECT
                 return PlayerDecision.DEFECT
         #     case where both doesn't cooperate
-        decision = PlayerDecision.COOPERATE if randint(0, 1) == 0 else PlayerDecision.DEFECT
-        self.previous_move = decision
-        return decision
+        return PlayerDecision.COOPERATE
 
     def cleanup_round(self):
         self.previous_move = None
