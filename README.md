@@ -8,6 +8,7 @@ explores at what condition would a given strategy be optimal. This program gives
  - `random_ratio` is the probability that the first user's move is random.
 # Installation
  - Requires Poetry
+ - install dependencies
    ```bash
    poetry install
    ```
